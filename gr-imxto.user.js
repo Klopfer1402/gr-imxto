@@ -2,9 +2,9 @@
 // @name         IMX.TO Direktlink on GirlsReleased
 // @name:de      Direkte Bildlinks auf Girlsreleased.com
 // @namespace    http://tampermonkey.net/
-// @version      0.21
-// @description  Replaces Image URIs on GirlsReleased with direct links to the image files on imx.to
-// @description:de Ersetzt die Bild-Links auf GirlsReleased mit direkten Links zu den Bilddateien auf imx.to
+// @version      0.3
+// @description  Replaces Image URIs on GirlsReleased with direct links to the image files on imx.to or imagetwist.com
+// @description:de Ersetzt die Bild-Links auf GirlsReleased mit direkten Links zu den Bilddateien auf imx.to oder imagetwist.com
 // @author       Christian Schmidt
 // @updateURL    https://github.com/Klopfer1402/gr-imxto/raw/main/gr-imxto.user.js
 // @match        https://girlsreleased.com/
@@ -16,9 +16,10 @@
 (function() {
     'use strict';
 
-    // Your code here...
     const urlpart = '.imx.to/i/';
     const auswahl = document.createElement('div');
+    const imxtoptn = /imx\.to/;
+    const imgtwistptn = /imagetwist\.com/;
     auswahl.style.fontSize = '0.7em';
     auswahl.style.padding = '1em';
     auswahl.innerHTML = '<form id="imxtoauswahl"><label for="imxtoselect">imx.to image server:</label><select name="imxtoselect" id="imxtoselect" size="1"><option value="i" selected>i</option><option value="i001">i001</option><option value="i002">i002</option><option value="i003">i003</option></select>.imx.to <button id="imxtoselectbtn">Select</button></form>';
@@ -35,19 +36,27 @@
             let thumblist = document.querySelectorAll('ul.setthumbs > li');
             if (thumblist.length == 0) return;
             [...thumblist].forEach(ele => {
-               const a = ele.querySelector('a');
-               const img = ele.querySelector('img');
-               const thumbimgsrc = img.src;
-               const neubildsrc = thumbimgsrc.replace('https://imx.to/u/t/', 'https://' + servername);
-               a.href = neubildsrc;
-               let bgcolor = 'PowderBlue';
-               switch (aw) {
-                   case 'i001': bgcolor = 'AliceBlue'; break;
-                   case 'i002': bgcolor = 'Azure'; break;
-                   case 'i003': bgcolor = 'PaleTurquoise'; break;
-                   default: bgcolor = 'PowderBlue'; break;
-               }
-               ele.style.backgroundColor = bgcolor;
+                const a = ele.querySelector('a');
+                const img = ele.querySelector('img');
+                const thumbimgsrc = img.src;
+
+                if (imxtoptn.test(thumbimgsrc)) {
+                    const neubildsrc = thumbimgsrc.replace('https://imx.to/u/t/', 'https://' + servername);
+                    a.href = neubildsrc;
+                    let bgcolor = 'PowderBlue';
+                    switch (aw) {
+                        case 'i001': bgcolor = 'AliceBlue'; break;
+                        case 'i002': bgcolor = 'Azure'; break;
+                        case 'i003': bgcolor = 'PaleTurquoise'; break;
+                        default: bgcolor = 'PowderBlue'; break;
+                    }
+                    ele.style.backgroundColor = bgcolor;
+                }
+                if (imgtwistptn.test(thumbimgsrc)) {
+                    const neubildsrc = thumbimgsrc.replace('imagetwist.com/th/', 'imagetwist.com/i/') + '/' + img.alt;
+                    a.href = neubildsrc;
+                    ele.style.backgroundColor = 'Lavender';
+                }
             });
         });
     }
