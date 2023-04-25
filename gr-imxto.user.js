@@ -2,9 +2,9 @@
 // @name         IMX.TO Direktlink on GirlsReleased
 // @name:de      Direkte Bildlinks auf Girlsreleased.com
 // @namespace    http://tampermonkey.net/
-// @version      0.4
-// @description  Replaces Image URIs on GirlsReleased with direct links to the image files on imx.to or imagetwist.com
-// @description:de Ersetzt die Bild-Links auf GirlsReleased mit direkten Links zu den Bilddateien auf imx.to oder imagetwist.com
+// @version      0.5
+// @description  Replaces Image URIs on GirlsReleased with direct links to the image files on imx.to, imagetwist.com or imgadult.com
+// @description:de Ersetzt die Bild-Links auf GirlsReleased mit direkten Links zu den Bilddateien auf imx.to, imagetwist.com oder imgadult.com
 // @author       Christian Schmidt
 // @updateURL    https://github.com/Klopfer1402/gr-imxto/raw/main/gr-imxto.user.js
 // @match        https://girlsreleased.com/
@@ -21,6 +21,7 @@
     const imxtoptn = /imx\.to/;
     const imgtwistptn = /imagetwist\.com/;
     const imgtwistbigjpg = /\.JPG/;
+    const imgadultptn = /imgadult\.com/;
     auswahl.style.fontSize = '0.7em';
     auswahl.style.padding = '1em';
     auswahl.innerHTML = '<form id="imxtoauswahl"><label for="imxtoselect">imx.to image server:</label><select name="imxtoselect" id="imxtoselect" size="1"><option value="i" selected>i</option><option value="i001">i001</option><option value="i002">i002</option><option value="i003">i003</option></select>.imx.to</label> <button id="imxtoselectbtn">Select</button></form>';
@@ -62,6 +63,13 @@
 
                     a.href = neubildsrc;
                     ele.style.backgroundColor = 'Lavender';
+                }
+                if (imgadultptn.test(thumbimgsrc)) {
+                    let neubildsrc = thumbimgsrc;
+                    neubildsrc = neubildsrc.replace('small-medium/', 'big/');
+
+                    a.href = neubildsrc;
+                    ele.style.backgroundColor = 'SeaShell';
                 }
             });
         });
