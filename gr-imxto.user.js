@@ -2,9 +2,9 @@
 // @name         IMX.TO Direktlink on GirlsReleased
 // @name:de      Direkte Bildlinks auf Girlsreleased.com
 // @namespace    http://tampermonkey.net/
-// @version      0.6
-// @description  Replaces Image URIs on GirlsReleased with direct links to the image files on imx.to, imagetwist.com or imgadult.com
-// @description:de Ersetzt die Bild-Links auf GirlsReleased mit direkten Links zu den Bilddateien auf imx.to, imagetwist.com oder imgadult.com
+// @version      0.7
+// @description  Replaces Image URIs on GirlsReleased with direct links to the image files on imx.to, imagetwist.com, imgadult.com or pixhost.to
+// @description:de Ersetzt die Bild-Links auf GirlsReleased mit direkten Links zu den Bilddateien auf imx.to, imagetwist.com, imgadult.com oder pixhost.to
 // @author       Christian Schmidt
 // @updateURL    https://github.com/Klopfer1402/gr-imxto/raw/main/gr-imxto.user.js
 // @match        https://girlsreleased.com/set/*
@@ -22,6 +22,7 @@
     const imgtwistptn = /imagetwist\.com/;
     const imgtwistbigjpg = /\.JPG/;
     const imgadultptn = /imgadult\.com/;
+	const pixhostptn = /pixhost\.to/;
     auswahl.style.fontSize = '0.7em';
     auswahl.style.padding = '.5em';
     auswahl.innerHTML = '<form id="imxtoauswahl" style="min-width:500px"><label for="imxtoselect">imx.to image server:</label><select name="imxtoselect" id="imxtoselect" size="1"><option value="i" selected>i</option><option value="i001">i001</option><option value="i002">i002</option><option value="i003">i003</option></select>.imx.to <button id="imxtoselectbtn" type="button">Convert hyperlinks</button></form>';
@@ -71,6 +72,13 @@
                         a.href = neubildsrc;
                         ele.style.backgroundColor = 'SeaShell';
                     }
+					if (pixhostptn.test(thumbimgsrc)) {
+						let neubildsrc = thumbimgsrc;
+						neubildsrc = neubildsrc.replace('https://t', 'https://img');
+						neubildsrc = neubildsrc.replace('/thumbs/', '/images/');
+						a.href = neubildsrc;
+						ele.style.backgroundColor = 'HoneyDew';
+					}
                 });
             });
         }
