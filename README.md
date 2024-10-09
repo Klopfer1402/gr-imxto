@@ -6,6 +6,7 @@ Since v0.3 it also changes the links to images hosted on imagetwist.com.
 Since v0.5 it also changes the links to images hosted on imgadult.com.
 This userscript was adapted to work with the new design of Girlsreleased.com in v0.6.
 Since v0.7 it also changes the links to images hosted on pixhost.to.
+v0.71 adds a few more hosts for imxto.
 
 ## Installation
 
