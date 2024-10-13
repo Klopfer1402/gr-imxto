@@ -17,3 +17,7 @@ Click on the gr-imxto.user.js and select the "Raw" view. Your browser-add on sho
 
 If you don't see the drop-down list and the "Convert hyperlinks" button when you look at a set, reload the page.
 When Girlsreleased presents you with the thumbnails in a set, try the server options and press the button. The background color of the Thumbnails should change. Try all server options until the link leads you to the desired picture. If the image links lead to imagetwist.com, imgadult.com, or pixhost.to, it doesn't matter which server options you choose, just press the button.
+
+## End of Support
+
+Since the newest redesign of the website this script doesn't work anymore, but I am not really interested in tinkering with it in the foreseeable future. I encourage others to fork this script and improve it.
