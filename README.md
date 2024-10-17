@@ -7,6 +7,7 @@ Since v0.5 it also changes the links to images hosted on imgadult.com.
 This userscript was adapted to work with the new design of Girlsreleased.com in v0.6.
 Since v0.7 it also changes the links to images hosted on pixhost.to.
 v0.71 adds a few more hosts for imxto.
+v0.8 supports the new redesign of the website (and removes the annoying ad banner).
 
 ## Installation
 
@@ -20,4 +21,4 @@ When Girlsreleased presents you with the thumbnails in a set, try the server opt
 
 ## End of Support
 
-Since the newest redesign of the website this script doesn't work anymore, but I am not really interested in tinkering with it in the foreseeable future. I encourage others to fork this script and improve it.
+This is probably the last version of this userscript from me. Originally I wasn't even going to make this script compatible with the new design, but now I did it anyway. I have no real desire to tinker with this script anymore, so I encourage others to fork the script and improve it.

@@ -2,12 +2,12 @@
 // @name         IMX.TO Direktlink on GirlsReleased
 // @name:de      Direkte Bildlinks auf Girlsreleased.com
 // @namespace    http://tampermonkey.net/
-// @version      0.71
+// @version      0.8
 // @description  Replaces Image URIs on GirlsReleased with direct links to the image files on imx.to, imagetwist.com, imgadult.com or pixhost.to
 // @description:de Ersetzt die Bild-Links auf GirlsReleased mit direkten Links zu den Bilddateien auf imx.to, imagetwist.com, imgadult.com oder pixhost.to
 // @author       Christian Schmidt
 // @updateURL    https://github.com/Klopfer1402/gr-imxto/raw/main/gr-imxto.user.js
-// @match        https://girlsreleased.com/set/*
+// @match        https://girlsreleased.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=girlsreleased.com
 // @grant        none
 // @license		 MIT
@@ -25,6 +25,8 @@
 	const pixhostptn = /pixhost\.to/;
     auswahl.style.fontSize = '0.7em';
     auswahl.style.padding = '.5em';
+    auswahl.classList.add("w-full", "fixed");
+    auswahl.style.top = '4rem';
     let awcode = '<form id="imxtoauswahl" style="min-width:500px"><label for="imxtoselect">imx.to image server:</label><select name="imxtoselect" id="imxtoselect" size="1"><option value="i" selected>i</option>';
     for (let i = 1; i < 10; i++) {
         awcode += '<option value="i00'+i+'">i00'+i+'</option>';
@@ -32,8 +34,13 @@
     awcode += '</select>.imx.to <button id="imxtoselectbtn" type="button">Convert hyperlinks</button></form>';
     auswahl.innerHTML = awcode;
     setTimeout(() => {
-        const content = document.querySelector('.toolbar');
-        content.appendChild(auswahl);
+        const ads = document.querySelectorAll('.ad-banner');
+        ads.forEach(ad => {
+            ad.remove();
+        });
+        const content = document.querySelector('.content');
+		const par = content.parentNode;
+        par.insertBefore(auswahl, content);
 
         const awbutton = document.getElementById("imxtoselectbtn");
         if (awbutton != null) {
